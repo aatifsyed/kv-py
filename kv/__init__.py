@@ -60,24 +60,24 @@ def main(
         action=log_level_action(logger),
         default="info",
     )
-    parser.add_argument(
-        "key",
-        choices=LenientChoices(kv.mapping),
-        metavar="key",
-        help="Retrive the value of this key",
-    )
-    parser.add_argument("value", nargs="?", help="If specified, set key to value")
+
+    subparsers = parser.add_subparsers(help="Special")
+
+    remove = subparsers.add_parser("remove")
+    remove.add_argument("key", choices=kv.mapping)
+
+    clear = subparsers.add_parser("clear")
+
+    get = subparsers.add_parser("get")
+    get.add_argument("key", choices=kv.mapping)
+
+    set = subparsers.add_parser("set")
+    set.add_argument("key", choices=LenientChoices(kv.mapping), metavar="key")
+    set.add_argument("value")
+
+    env = subparsers.add_parser("env")
 
     argcomplete.autocomplete(parser)
     args = parser.parse_args(args=args)
 
     logger.debug(f"{args=}")
-
-    if args.value is None:
-        # This is a get. Print out
-        print(kv.mapping[args.key].value)
-    else:
-        # This is a set. Modify and save
-        kv.mapping[args.key] = Value(value=args.value)
-        kv_file.parent.mkdir(parents=True, exist_ok=True)
-        kv_file.write_text(kv.to_json())
