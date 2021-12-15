@@ -128,7 +128,7 @@ def kvv(
             db.mapping.pop(key)
         kv_file.write_text(db.to_json())
     elif args.subcommand == "clear":
-        kv_file.write_text(Database(mapping={}))
+        kv_file.write_text(Database(mapping={}).to_json())
     elif args.subcommand == "env":
         for key, value in db.mapping.items():
             if is_valid_env_var_name(key):
