@@ -61,21 +61,12 @@ def main(
         default="info",
     )
 
-    subparsers = parser.add_subparsers(help="Special")
-
-    remove = subparsers.add_parser("remove")
-    remove.add_argument("key", choices=kv.mapping)
-
-    clear = subparsers.add_parser("clear")
-
-    get = subparsers.add_parser("get")
-    get.add_argument("key", choices=kv.mapping)
-
-    set = subparsers.add_parser("set")
-    set.add_argument("key", choices=LenientChoices(kv.mapping), metavar="key")
-    set.add_argument("value")
-
-    env = subparsers.add_parser("env")
+    parser.add_argument(
+        "first_arg",
+        choices=LenientChoices(kv.mapping | {"--remove": None}),
+        metavar="key",
+    )
+    parser.add_argument("value", nargs="?")
 
     argcomplete.autocomplete(parser)
     args = parser.parse_args(args=args)
