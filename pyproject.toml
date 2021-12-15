@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "kv"
+name = "kvsh"
 version = "0.1.0"
 description = "Persistent key-value store for the command line"
 authors = ["Aatif Syed <aatifsyedyp@gmail.com>"]
 readme = "README.md"
-repository = "https://github.com/aatifsyed/kv"
+repository = "https://github.com/aatifsyed/kvsh"
 license = "MIT"
 
 [tool.poetry.dependencies]
@@ -22,8 +22,8 @@ black = "^21.11b0"
 mypy = "^0.910"
 
 [tool.poetry.scripts]
-kv = 'kv:kv'
-kvv = 'kv:kvv'
+kv = 'kvsh:kv'
+kvv = 'kvsh:kvv'
 
 [tool.pytest.ini_options]
 log_cli = true

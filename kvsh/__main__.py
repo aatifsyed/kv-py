@@ -1,4 +1,4 @@
-from kv import kvv
+from kvsh import kvv
 
 if __name__ == "__main__":
     kvv()

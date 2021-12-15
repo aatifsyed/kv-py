@@ -8,7 +8,6 @@ from datetime import datetime
 from pathlib import Path
 import re
 import shlex
-from string import ascii_letters
 from typing import Dict, Optional, Sequence
 
 import argcomplete
