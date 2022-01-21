@@ -105,6 +105,7 @@ def kvv(
     set = subparsers.add_parser("set")
     set.add_argument("key", choices=LenientChoices(db.mapping), metavar="key")
     set.add_argument("value")
+    set.add_argument("comment", nargs="?")
 
     remove = subparsers.add_parser("remove", aliases=["rm"])
     remove.add_argument("key", choices=db.mapping, nargs="+")
@@ -121,9 +122,9 @@ def kvv(
     if args.subcommand == "get":
         print(db.mapping[args.key].value)
     elif args.subcommand == "set":
-        db.mapping[args.key] = Value(value=args.value)
+        db.mapping[args.key] = Value(value=args.value, comment=args.comment)
         kv_file.write_text(db.to_json())
-    elif args.subcommand == "remove":
+    elif args.subcommand == "remove" or args.subcommand == "rm":
         for key in args.key:
             db.mapping.pop(key)
         kv_file.write_text(db.to_json())
