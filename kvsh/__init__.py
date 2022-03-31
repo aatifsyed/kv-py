@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
+import shlex
 from collections import UserDict
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-import re
-import shlex
 from typing import Dict, Optional, Sequence
 
 import argcomplete
@@ -26,6 +26,7 @@ class Value:
         metadata=config(encoder=datetime.isoformat, decoder=datetime.fromisoformat),
     )
     comment: Optional[str] = None
+    expires: Optional[datetime] = field(default=None, metadata=config())
 
 
 @dataclass
